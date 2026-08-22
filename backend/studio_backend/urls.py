@@ -1,8 +1,8 @@
 from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include, re_path
+from django.views.static import serve as serve_static_file
 
 admin.site.site_header = "Aaruthra Studio Administration"
 admin.site.site_title = "Aaruthra Studio Portal"
@@ -28,11 +28,17 @@ urlpatterns = [
     path('api/', include('photography.urls')),
 ]
 
-# Served in all environments (not just DEBUG) because this deployment has
-# no separate media host/CDN in front of it when Cloudinary isn't
-# configured — without this, locally-stored uploads would 404 in
-# production even though the files exist on disk.
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serves uploaded media files directly, in every environment (not just
+# DEBUG). Deliberately NOT using django.conf.urls.static.static() here —
+# that helper silently registers zero URL patterns whenever DEBUG=False,
+# no matter how it's called, which is exactly what caused media requests
+# to fall through to the catch-all frontend route below and return the
+# React app's index.html (with a 200 status) instead of the actual image.
+# This deployment has no separate media host/CDN in front of it when
+# Cloudinary isn't configured, so Django has to serve these files itself.
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', serve_static_file, {'document_root': settings.MEDIA_ROOT}),
+]
 
 # Catch-all: anything not matched above falls through to the React app.
 # Must stay last.
