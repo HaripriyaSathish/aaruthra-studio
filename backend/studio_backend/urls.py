@@ -28,8 +28,11 @@ urlpatterns = [
     path('api/', include('photography.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Served in all environments (not just DEBUG) because this deployment has
+# no separate media host/CDN in front of it when Cloudinary isn't
+# configured — without this, locally-stored uploads would 404 in
+# production even though the files exist on disk.
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Catch-all: anything not matched above falls through to the React app.
 # Must stay last.

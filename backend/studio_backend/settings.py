@@ -29,14 +29,15 @@ AUTO_MIGRATE = os.getenv('AUTO_MIGRATE', 'True') == 'True'
 AUTO_SEED = os.getenv('AUTO_SEED', 'True') == 'True'
 
 # Application definition
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
     'cloudinary',
 
     # Third party packages
@@ -46,7 +47,6 @@ INSTALLED_APPS = [
     # Core app
     'photography.apps.PhotographyConfig',
 ]
-
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
