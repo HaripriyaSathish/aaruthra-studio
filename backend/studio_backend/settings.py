@@ -159,13 +159,12 @@ CLOUDINARY_STORAGE = {
 }
 USE_CLOUDINARY = all(CLOUDINARY_STORAGE.values())
 
-STORAGES = {
-    'default': {
-        'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage'
-        if USE_CLOUDINARY
-        else 'django.core.files.storage.FileSystemStorage',
-    },
-    'staticfiles': {
-        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
-    },
-}
+# Old-style storage settings (not the newer STORAGES dict) — required
+# because django-cloudinary-storage's own collectstatic override reads
+# settings.STATICFILES_STORAGE directly and errors if it's absent.
+DEFAULT_FILE_STORAGE = (
+    'cloudinary_storage.storage.MediaCloudinaryStorage'
+    if USE_CLOUDINARY
+    else 'django.core.files.storage.FileSystemStorage'
+)
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
