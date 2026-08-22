@@ -35,12 +35,14 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
-    
+    'cloudinary',
+
     # Third party packages
     'rest_framework',
     'corsheaders',
-    
+
     # Core app
     'photography.apps.PhotographyConfig',
 ]
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -109,8 +112,18 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Single-deployment mode: the built React app (frontend/dist) is served
+# directly by Django via WhiteNoise, so both frontend and backend live
+# behind one Render URL. WHITENOISE_ROOT serves any file found in that
+# folder (index.html, hashed JS/CSS bundles, favicon, etc.) at the site
+# root, matching Vite's default root-relative asset paths. Only set when
+# the folder actually exists so local dev without a frontend build isn't
+# affected.
+FRONTEND_DIST_DIR = PROJECT_ROOT / 'frontend' / 'dist'
+if FRONTEND_DIST_DIR.exists():
+    WHITENOISE_ROOT = str(FRONTEND_DIST_DIR)
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # REST Framework Configuration
 REST_FRAMEWORK = {
@@ -133,9 +146,26 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 _extra_cors_origins = os.getenv('CORS_ALLOWED_ORIGINS', '')
 CORS_ALLOWED_ORIGINS = [o.strip() for o in _extra_cors_origins.split(',') if o.strip()]
 
-# Cloudinary Settings
+# Cloudinary Settings — when all three are set, uploaded photos (StudioInfo
+# hero/parallax/photographer images, story/service/gallery/testimonial
+# images) are stored permanently on Cloudinary instead of the app's local
+# disk. Without them, ImageField uploads just fall back to local disk
+# storage under MEDIA_ROOT, which is fine for local dev but gets wiped on
+# every redeploy on most hosts (e.g. Render's free tier).
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', 'aaruthra-studio'),
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', ''),
     'API_KEY': os.getenv('CLOUDINARY_API_KEY', ''),
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', ''),
+}
+USE_CLOUDINARY = all(CLOUDINARY_STORAGE.values())
+
+STORAGES = {
+    'default': {
+        'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage'
+        if USE_CLOUDINARY
+        else 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage',
+    },
 }
