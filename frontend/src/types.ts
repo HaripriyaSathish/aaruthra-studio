@@ -1,12 +1,15 @@
 export interface StoryItem {
   id: string;
   title: string;
+  couple: string;
   subtitle: string;
-  category: string;
   location: string;
+  date: string;
   image: string;
-  description: string;
-  rituals: string[];
+  excerpt: string;
+  fullStory: string;
+  highlights: string[];
+  galleryImages: string[];
 }
 
 export interface ServiceItem {
@@ -40,7 +43,7 @@ export interface PackageItem {
   duration: string;
   photographers: string;
   inclusions: string[];
-  deliverables: string[];
+  deliverables?: string[];
   popular?: boolean;
 }
 
@@ -88,4 +91,23 @@ export interface CloudinaryConfig {
   uploadPreset: string;
   apiKey?: string;
   enabled: boolean;
+}
+
+export interface StudioInfoData {
+  name: string;
+  tagline: string;
+  city: string;
+  state: string;
+  address: string;
+  phone: string;
+  whatsappNumber: string;
+  email: string;
+  founderName: string;
+  experienceYears: string;
+  weddingsPhotographed: string;
+  heirloomAlbums: string;
+  clientRating: string;
+  heroImage: string;
+  parallaxImage: string;
+  photographerImage: string;
 }

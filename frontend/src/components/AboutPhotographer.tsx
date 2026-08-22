@@ -1,8 +1,9 @@
 import React from 'react';
-import { Camera, Award, Heart, BookOpen, Clock, Sparkles } from 'lucide-react';
-import { STUDIO_INFO } from '../data/initialData';
+import { Camera, Sparkles } from 'lucide-react';
+import { useStudioData } from '../context/StudioDataContext';
 
 export const AboutPhotographer: React.FC = () => {
+  const { studioInfo } = useStudioData();
   const pillars = [
     {
       title: "Authentic Emotion",
@@ -23,7 +24,7 @@ export const AboutPhotographer: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-24 sm:py-32 bg-[#FAF7F2] text-[#141211] border-t border-[#E6DFD5]">
+    <section id="about" className="py-14 sm:py-20 bg-[#FAF7F2] text-[#141211] border-t border-[#E6DFD5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Grid: Photo + Narrative */}
@@ -33,14 +34,18 @@ export const AboutPhotographer: React.FC = () => {
           <div className="lg:col-span-5">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               <div className="relative aspect-[4/5] rounded-sm overflow-hidden bg-[#141211] border-2 border-[#C5A880]/60 shadow-2xl">
-                <img
-                  src="/assets/photographer-DEOKahGj.jpg"
-                  alt="Aaruthra Selvan - Founder & Lead Photographer"
-                  className="w-full h-full object-cover object-center"
-                />
+                {studioInfo.photographerImage ? (
+                  <img
+                    src={studioInfo.photographerImage}
+                    alt={`${studioInfo.leadPhotographer} - Founder & Lead Photographer`}
+                    className="w-full h-full object-cover object-center"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-[#38271E] via-[#141211] to-[#141211]" />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#141211]/70 via-transparent to-transparent"></div>
                 <div className="absolute bottom-5 left-5 right-5 text-[#FAF7F2]">
-                  <p className="font-serif text-2xl font-medium">{STUDIO_INFO.leadPhotographer}</p>
+                  <p className="font-serif text-2xl font-medium">{studioInfo.leadPhotographer}</p>
                   <p className="eyebrow text-[0.62rem] text-[#C5A880] tracking-[0.25em] font-semibold mt-0.5">
                     Founder & Lead Visual Storyteller
                   </p>
@@ -95,7 +100,7 @@ export const AboutPhotographer: React.FC = () => {
 
         {/* Stats Row */}
         <div className="mt-20 pt-12 border-t border-[#E6DFD5] grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {STUDIO_INFO.stats.map((stat, sIdx) => (
+          {studioInfo.stats.map((stat, sIdx) => (
             <div key={sIdx} className="space-y-1">
               <p className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-[#A75D3F]">
                 {stat.value}

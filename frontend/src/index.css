@@ -102,3 +102,26 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #A98758;
 }
+/* Slow, smooth Ken Burns zoom for hero-style background photos */
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+
+.animate-kenburns {
+  animation: kenburns 20s ease-out forwards;
+}
+
+/* Hides the scrollbar on the navbar links when they need to scroll on
+   narrower desktop widths, without hiding scroll capability itself. */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -1,14 +1,11 @@
 import React from 'react';
 import { Star, Quote, Sparkles, MapPin } from 'lucide-react';
-import { TestimonialItem } from '../types';
+import { useStudioData } from '../context/StudioDataContext';
 
-interface TestimonialsProps {
-  testimonials: TestimonialItem[];
-}
-
-export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
+export const Testimonials: React.FC = () => {
+  const { testimonials } = useStudioData();
   return (
-    <section id="testimonials" className="py-24 sm:py-32 bg-[#FAF7F2] border-t border-[#E6DFD5] text-[#141211]">
+    <section id="testimonials" className="py-14 sm:py-20 bg-[#FAF7F2] border-t border-[#E6DFD5] text-[#141211]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -46,7 +43,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
 
                 {/* Quote Text */}
                 <p className="font-serif text-lg text-[#141211] leading-relaxed italic font-normal">
-                  “{t.quote}”
+                  "{t.quote}"
                 </p>
               </div>
 

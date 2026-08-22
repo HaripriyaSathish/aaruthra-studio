@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { MapPin, Eye, Sparkles, BookOpen, X, CheckCircle2 } from 'lucide-react';
-import { INITIAL_STORIES } from '../data/initialData';
+import { MapPin, Eye, Sparkles, X, CheckCircle2 } from 'lucide-react';
+import { useStudioData } from '../context/StudioDataContext';
 import { StoryItem } from '../types';
 
 interface FeaturedStoriesProps {
@@ -8,10 +8,11 @@ interface FeaturedStoriesProps {
 }
 
 export const FeaturedStories: React.FC<FeaturedStoriesProps> = ({ onOpenBooking }) => {
+  const { stories } = useStudioData();
   const [selectedStory, setSelectedStory] = useState<StoryItem | null>(null);
 
   return (
-    <section id="stories" className="py-24 sm:py-32 bg-[#FAF7F2] text-[#141211] relative">
+    <section id="stories" className="py-14 sm:py-20 bg-[#FAF7F2] text-[#141211] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -32,7 +33,7 @@ export const FeaturedStories: React.FC<FeaturedStoriesProps> = ({ onOpenBooking 
 
         {/* Stories Grid */}
         <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {INITIAL_STORIES.map((story, index) => (
+          {stories.map((story) => (
             <div
               key={story.id}
               id={`story-card-${story.id}`}
@@ -52,7 +53,7 @@ export const FeaturedStories: React.FC<FeaturedStoriesProps> = ({ onOpenBooking 
                 {/* Category & Location Badges */}
                 <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                   <span className="eyebrow bg-[#141211]/90 text-[#C5A880] border border-[#C5A880]/50 px-3 py-1 text-[0.62rem] font-bold rounded-sm backdrop-blur-sm">
-                    {story.category}
+                    {story.date}
                   </span>
                 </div>
 
@@ -80,7 +81,7 @@ export const FeaturedStories: React.FC<FeaturedStoriesProps> = ({ onOpenBooking 
 
                 {/* Rituals tags */}
                 <div className="mt-6 pt-5 border-t border-[#E6DFD5] flex flex-wrap gap-2">
-                  {story.rituals.map((r, rIdx) => (
+                  {story.highlights.map((r, rIdx) => (
                     <span
                       key={rIdx}
                       className="text-xs px-2.5 py-1 rounded bg-[#FAF7F2] text-[#38271E] border border-[#E6DFD5] font-medium"
@@ -127,7 +128,7 @@ export const FeaturedStories: React.FC<FeaturedStoriesProps> = ({ onOpenBooking 
 
               <div className="absolute bottom-4 left-6 right-6 text-[#FAF7F2]">
                 <span className="eyebrow text-[#C5A880] font-bold text-xs bg-[#141211]/80 px-2.5 py-1 rounded border border-[#C5A880]/40">
-                  {selectedStory.category}
+                  {selectedStory.date}
                 </span>
                 <h3 className="font-serif text-2xl sm:text-4xl font-medium mt-2 text-[#FAF7F2]">
                   {selectedStory.title}
@@ -144,14 +145,14 @@ export const FeaturedStories: React.FC<FeaturedStoriesProps> = ({ onOpenBooking 
               <div>
                 <h4 className="eyebrow text-[#A75D3F] font-bold text-xs">The Narrative</h4>
                 <p className="mt-2 text-base text-[#23201E] leading-relaxed font-normal">
-                  {selectedStory.description}
+                  {selectedStory.fullStory}
                 </p>
               </div>
 
               <div>
                 <h4 className="eyebrow text-[#A75D3F] font-bold text-xs">Documented Rituals</h4>
                 <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {selectedStory.rituals.map((ritual, idx) => (
+                  {selectedStory.highlights.map((ritual, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-sm text-[#38271E] bg-[#FAF7F2] p-2.5 rounded border border-[#E6DFD5]">
                       <CheckCircle2 className="w-4 h-4 text-[#C5A880] shrink-0" />
                       <span className="font-medium">{ritual}</span>

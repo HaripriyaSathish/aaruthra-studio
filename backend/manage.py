@@ -1,8 +1,10 @@
 import os
 import sys
+from pathlib import Path
 
 def main():
     """Run administrative tasks for Aaruthra Studio Django Backend."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent / 'backend'))
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'studio_backend.settings')
     try:
         from django.core.management import execute_from_command_line

@@ -11,6 +11,8 @@ from photography.models import (
 
 def seed_studio_data():
     # 1. Studio Info
+    # Photos (hero_image, parallax_image, photographer_image) are intentionally
+    # left blank here -- upload them via Django admin at /admin/.
     studio, _ = StudioInfo.objects.get_or_create(
         id=1,
         defaults={
@@ -31,6 +33,7 @@ def seed_studio_data():
     )
 
     # 2. Featured Sacred Stories
+    # cover_image is intentionally left unset -- upload it via Django admin.
     stories_data = [
         {
             "id": 1,
@@ -39,16 +42,10 @@ def seed_studio_data():
             "subtitle": "Madurai Meenakshi Amman Heritage Precinct",
             "location": "Madurai, Tamil Nadu",
             "date": "February 2026",
-            "cover_image": "/assets/hero-muhurtham-D4_7cK4Y.jpg",
             "excerpt": "Under the towering gopurams of Madurai, Ananya and Karthik exchanged garlands amid nadaswaram ragas and pure silk Kanjivarams.",
             "full_story": "The morning began at 4:30 AM with the sacred thirumanjanam and early morning nadaswaram echoes filling the courtyard. As the sun crested the stone pillars of the temple mandapam, the auspicious Koorai pudavai was blessed by three generations of elders. Every glance between Ananya and Karthik was framed by bronze kuthuvilakku lamps and fresh Madurai Malli garlands.",
             "highlights": ["Dawn Nadaswaram at 4:30 AM", "Ancestral Gold Thali Blessing", "Oonjal Swing Songs by Aunts", "1000-Pillar Hall Couple Portraits"],
-            "gallery_images": [
-                "/assets/hero-muhurtham-D4_7cK4Y.jpg",
-                "/assets/story-cheOperation-CFsV20pL.jpg",
-                "/assets/gallery-groom-BvKkL7m0.jpg",
-                "/assets/gallery-thali-CKx69701.jpg"
-            ],
+            "gallery_images": [],
             "order": 1
         },
         {
@@ -58,16 +55,10 @@ def seed_studio_data():
             "subtitle": "Karaikudi Heritage Palace Estate",
             "location": "Karaikudi, Chettinad",
             "date": "January 2026",
-            "cover_image": "/assets/story-cheOperation-CFsV20pL.jpg",
             "excerpt": "Belgian glass chandeliers, Burmese teak pillars, and Athangudi tiled corridors set the stage for Meera and Siddharth's three-day royal wedding.",
             "full_story": "Rooted in centuries-old Chettinad architecture, this celebration was an homage to heirloom aesthetics. From the grand Mappillai Azhaippu procession in open horse carriages to the intimate evening Vratham rituals in the inner thinnai courtyard, we documented every detail of this unforgettable union.",
             "highlights": ["Handmade Athangudi Tile Backdrops", "Chettinad Brass Urli Floral Decor", "Traditional Mappillai Azhaippu", "Candid Courtyard Sitar Performances"],
-            "gallery_images": [
-                "/assets/story-cheOperation-CFsV20pL.jpg",
-                "/assets/gallery-bride-DS4k_p0L.jpg",
-                "/assets/gallery-oonjal-CL6bY78z.jpg",
-                "/assets/gallery-couple-CBk780a1.jpg"
-            ],
+            "gallery_images": [],
             "order": 2
         }
     ]
@@ -75,6 +66,7 @@ def seed_studio_data():
         FeaturedStory.objects.update_or_create(id=s["id"], defaults=s)
 
     # 3. Signature Offerings / Services
+    # cover_image is intentionally left unset -- upload it via Django admin.
     services_data = [
         {
             "id": 1,
@@ -89,7 +81,6 @@ def seed_studio_data():
             ],
             "starting_price": "₹1,20,000",
             "price_raw": 120000,
-            "cover_image": "/assets/hero-muhurtham-D4_7cK4Y.jpg",
             "is_popular": True,
             "order": 1
         },
@@ -106,7 +97,6 @@ def seed_studio_data():
             ],
             "starting_price": "₹2,50,000",
             "price_raw": 250000,
-            "cover_image": "/assets/story-cheOperation-CFsV20pL.jpg",
             "is_popular": False,
             "order": 2
         },
@@ -123,7 +113,6 @@ def seed_studio_data():
             ],
             "starting_price": "₹65,000",
             "price_raw": 65000,
-            "cover_image": "/assets/gallery-couple-CBk780a1.jpg",
             "is_popular": False,
             "order": 3
         }
@@ -132,6 +121,7 @@ def seed_studio_data():
         SignatureService.objects.update_or_create(id=s["id"], defaults=s)
 
     # 4. Gallery Photos
+    # image_url is intentionally left unset -- upload it via Django admin.
     gallery_data = [
         {
             "id": 1,
@@ -139,7 +129,6 @@ def seed_studio_data():
             "category": "muhurtham",
             "category_label": "Sacred Muhurtham",
             "location": "Madurai",
-            "image_url": "/assets/gallery-thali-CKx69701.jpg",
             "order": 1
         },
         {
@@ -148,7 +137,6 @@ def seed_studio_data():
             "category": "portraits",
             "category_label": "Portraits & Heirloom",
             "location": "Tirunelveli",
-            "image_url": "/assets/gallery-bride-DS4k_p0L.jpg",
             "order": 2
         },
         {
@@ -157,7 +145,6 @@ def seed_studio_data():
             "category": "couples",
             "category_label": "Couples & Pre-Wedding",
             "location": "Karaikudi",
-            "image_url": "/assets/gallery-couple-CBk780a1.jpg",
             "order": 3
         },
         {
@@ -166,7 +153,6 @@ def seed_studio_data():
             "category": "rituals",
             "category_label": "Rituals & Traditions",
             "location": "Tanjore",
-            "image_url": "/assets/gallery-oonjal-CL6bY78z.jpg",
             "order": 4
         },
         {
@@ -175,7 +161,6 @@ def seed_studio_data():
             "category": "portraits",
             "category_label": "Portraits & Heirloom",
             "location": "Madurai",
-            "image_url": "/assets/gallery-groom-BvKkL7m0.jpg",
             "order": 5
         },
         {
@@ -184,7 +169,6 @@ def seed_studio_data():
             "category": "muhurtham",
             "category_label": "Sacred Muhurtham",
             "location": "Chennai",
-            "image_url": "/assets/hero-muhurtham-D4_7cK4Y.jpg",
             "order": 6
         },
         {
@@ -193,7 +177,6 @@ def seed_studio_data():
             "category": "rituals",
             "category_label": "Rituals & Traditions",
             "location": "Coimbatore",
-            "image_url": "/assets/break-parallax-DXD94pgG.jpg",
             "order": 7
         },
         {
@@ -202,7 +185,6 @@ def seed_studio_data():
             "category": "couples",
             "category_label": "Couples & Pre-Wedding",
             "location": "Trichy",
-            "image_url": "/assets/story-cheOperation-CFsV20pL.jpg",
             "order": 8
         }
     ]
@@ -275,6 +257,7 @@ def seed_studio_data():
         InvestmentPackage.objects.update_or_create(id=p["id"], defaults=p)
 
     # 6. Testimonials
+    # avatar_url is intentionally left unset -- upload it via Django admin.
     testimonials_data = [
         {
             "id": 1,
@@ -284,7 +267,6 @@ def seed_studio_data():
             "wedding_date_venue": "Madurai Meenakshi Kalyana Mandapam · Jan 2026",
             "rating": 5,
             "quote": "Aaruthra and his team felt like family. They knew exactly where to stand during the Thali ceremony without ever blocking the sacred homam or the elders. When we opened our velvet album, my grandmother had tears in her eyes.",
-            "avatar_url": "/assets/gallery-bride-DS4k_p0L.jpg",
             "verified": True,
             "order": 1
         },
@@ -296,7 +278,6 @@ def seed_studio_data():
             "wedding_date_venue": "Chettinad Heritage Mansion, Karaikudi · Dec 2025",
             "rating": 5,
             "quote": "The way they captured the natural morning sunlight filtering through the teak pillars during our Oonjal ritual was pure poetry. The colours of our silk sarees look rich and authentic, not over-saturated.",
-            "avatar_url": "/assets/story-cheOperation-CFsV20pL.jpg",
             "verified": True,
             "order": 2
         },
@@ -308,7 +289,6 @@ def seed_studio_data():
             "wedding_date_venue": "Tanjore Royal Heritage Palace · Nov 2025",
             "rating": 5,
             "quote": "If you care about genuine heritage aesthetics and un-staged candid emotions, Aaruthra Studio is simply unparalleled in South India. They delivered our preview gallery in just 5 days!",
-            "avatar_url": "/assets/hero-muhurtham-D4_7cK4Y.jpg",
             "verified": True,
             "order": 3
         }
@@ -335,7 +315,7 @@ def seed_studio_data():
 
     return {
         "status": "success",
-        "message": "Aaruthra Studio database seeded successfully with all sacred stories, services, gallery items, packages, and testimonials!",
+        "message": "Aaruthra Studio database seeded successfully. Now upload photos via Django admin at /admin/ for stories, services, gallery, testimonials, and the hero/parallax/photographer images under Studio Profile.",
         "stats": {
             "stories": FeaturedStory.objects.count(),
             "services": SignatureService.objects.count(),

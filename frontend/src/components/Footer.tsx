@@ -1,13 +1,13 @@
 import React from 'react';
-import { Camera, Phone, Mail, MessageCircle, MapPin, ShieldCheck, Heart } from 'lucide-react';
-import { STUDIO_INFO } from '../data/initialData';
+import { Camera, Phone, Mail, MessageCircle, MapPin } from 'lucide-react';
+import { useStudioData } from '../context/StudioDataContext';
 
 interface FooterProps {
   onOpenBooking: () => void;
-  onOpenAdmin: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenAdmin }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
+  const { studioInfo } = useStudioData();
   return (
     <footer id="main-footer" className="bg-[#141211] text-[#FAF7F2] border-t border-[#38271E] pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,7 +33,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenAdmin }) =>
 
             <div className="flex items-center gap-3 pt-2">
               <a
-                href={`https://wa.me/${STUDIO_INFO.whatsappNumber}`}
+                href={`https://wa.me/${studioInfo.whatsappNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-full bg-[#23201E] border border-[#38271E] text-[#25D366] hover:border-[#25D366] transition-colors"
@@ -42,14 +42,14 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenAdmin }) =>
                 <MessageCircle className="w-4 h-4" />
               </a>
               <a
-                href={`tel:${STUDIO_INFO.phone}`}
+                href={`tel:${studioInfo.phone}`}
                 className="p-2.5 rounded-full bg-[#23201E] border border-[#38271E] text-[#C5A880] hover:border-[#C5A880] transition-colors"
                 title="Phone"
               >
                 <Phone className="w-4 h-4" />
               </a>
               <a
-                href={`mailto:${STUDIO_INFO.email}`}
+                href={`mailto:${studioInfo.email}`}
                 className="p-2.5 rounded-full bg-[#23201E] border border-[#38271E] text-[#FAF7F2] hover:border-[#C5A880] transition-colors"
                 title="Email"
               >
@@ -77,15 +77,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenAdmin }) =>
             <div className="space-y-2 text-xs text-[#E2CFB4]">
               <p className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#C5A880] shrink-0 mt-0.5" />
-                <span>{STUDIO_INFO.address}</span>
+                <span>{studioInfo.address}</span>
               </p>
               <p className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#C5A880] shrink-0" />
-                <span>{STUDIO_INFO.phone}</span>
+                <span>{studioInfo.phone}</span>
               </p>
               <p className="flex items-center gap-2">
                 <Mail className="w-4 h-4 text-[#C5A880] shrink-0" />
-                <span>{STUDIO_INFO.email}</span>
+                <span>{studioInfo.email}</span>
               </p>
             </div>
 
@@ -104,18 +104,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking, onOpenAdmin }) =>
         {/* Bottom Bar */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#E2CFB4]">
           <p>© {new Date().getFullYear()} Aaruthra Studio. All Rights Reserved. Crafted with reverence.</p>
+
           
-          <div className="flex items-center gap-4">
-            <button
-              onClick={onOpenAdmin}
-              className="hover:text-[#C5A880] transition-colors flex items-center gap-1 text-[0.72rem] font-semibold"
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-[#C5A880]" />
-              <span>Studio Admin Panel</span>
-            </button>
-            <span>·</span>
-            <span>React + Vite & Django SQL Ready</span>
-          </div>
         </div>
 
       </div>

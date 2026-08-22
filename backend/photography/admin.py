@@ -24,6 +24,10 @@ class StudioInfoAdmin(admin.ModelAdmin):
         ("Heritage & Stats", {
             "fields": ("experience_years", "weddings_photographed", "heirloom_albums", "client_rating")
         }),
+        ("Site Photos", {
+            "fields": ("hero_image", "parallax_image", "photographer_image"),
+            "description": "Homepage hero banner, full-bleed quote-break background, and founder portrait."
+        }),
     )
 
 @admin.register(FeaturedStory)
@@ -35,7 +39,7 @@ class FeaturedStoryAdmin(admin.ModelAdmin):
 
     def preview_thumbnail(self, obj):
         if obj.cover_image:
-            return format_html('<img src="{}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;" />', obj.cover_image)
+            return format_html('<img src="{}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;" />', obj.cover_image.url)
         return "-"
     preview_thumbnail.short_description = "Cover Preview"
 
@@ -48,7 +52,7 @@ class SignatureServiceAdmin(admin.ModelAdmin):
 
     def preview_thumbnail(self, obj):
         if obj.cover_image:
-            return format_html('<img src="{}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;" />', obj.cover_image)
+            return format_html('<img src="{}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px;" />', obj.cover_image.url)
         return "-"
     preview_thumbnail.short_description = "Image"
 
@@ -61,7 +65,7 @@ class GalleryPhotoAdmin(admin.ModelAdmin):
 
     def preview_thumbnail(self, obj):
         if obj.image_url:
-            return format_html('<img src="{}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;" />', obj.image_url)
+            return format_html('<img src="{}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;" />', obj.image_url.url)
         return "-"
     preview_thumbnail.short_description = "Thumbnail"
 
@@ -81,7 +85,7 @@ class TestimonialAdmin(admin.ModelAdmin):
 
     def avatar_preview(self, obj):
         if obj.avatar_url:
-            return format_html('<img src="{}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;" />', obj.avatar_url)
+            return format_html('<img src="{}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;" />', obj.avatar_url.url)
         return "-"
     avatar_preview.short_description = "Client Avatar"
 

@@ -1,19 +1,18 @@
 import React from 'react';
-import { Check, Sparkles, MessageCircle, Calendar, ShieldCheck, Heart } from 'lucide-react';
+import { Check, Sparkles, MessageCircle, Calendar } from 'lucide-react';
 import { PackageItem } from '../types';
-import { STUDIO_INFO } from '../data/initialData';
+import { useStudioData } from '../context/StudioDataContext';
 
 interface InvestmentPackagesProps {
-  packages: PackageItem[];
   onSelectPackage: (pkg: PackageItem) => void;
 }
 
-export const InvestmentPackages: React.FC<InvestmentPackagesProps> = ({ 
-  packages, 
-  onSelectPackage 
+export const InvestmentPackages: React.FC<InvestmentPackagesProps> = ({
+  onSelectPackage
 }) => {
+  const { packages, studioInfo } = useStudioData();
   return (
-    <section id="packages" className="py-24 sm:py-32 bg-[#141211] text-[#FAF7F2] relative">
+    <section id="packages" className="py-14 sm:py-20 bg-[#141211] text-[#FAF7F2] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -113,7 +112,7 @@ export const InvestmentPackages: React.FC<InvestmentPackagesProps> = ({
                 </button>
 
                 <a
-                  href={`https://wa.me/${STUDIO_INFO.whatsappNumber}?text=${encodeURIComponent(`Hello Aaruthra Studio! I am interested in booking "${pkg.name}" (${pkg.price}). Can you verify date availability?`)}`}
+                  href={`https://wa.me/${studioInfo.whatsappNumber}?text=${encodeURIComponent(`Hello Aaruthra Studio! I am interested in booking "${pkg.name}" (${pkg.price}). Can you verify date availability?`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 py-2.5 rounded-sm border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366]/10 text-xs font-semibold transition-colors"

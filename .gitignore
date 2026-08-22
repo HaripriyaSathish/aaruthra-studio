@@ -6,3 +6,12 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Python / Django
+__pycache__/
+*.py[cod]
+*.sqlite3
+staticfiles/
+venv/
+.venv/
+frontend/package-lock.json

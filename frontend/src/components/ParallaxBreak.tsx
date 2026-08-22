@@ -1,19 +1,25 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+import { useStudioData } from '../context/StudioDataContext';
 
 export const ParallaxBreak: React.FC = () => {
+  const { studioInfo } = useStudioData();
   return (
-    <section 
+    <section
       id="quote-break-section"
-      className="relative min-h-[60vh] sm:min-h-[70vh] flex items-center justify-center overflow-hidden bg-[#141211] text-[#FAF7F2] py-20"
+      className="relative min-h-[50vh] sm:min-h-[60vh] flex items-center justify-center overflow-hidden bg-[#141211] text-[#FAF7F2] py-14"
     >
       {/* Background Image with Fixed/Parallax Feel */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="/assets/break-parallax-DXD94pgG.jpg"
-          alt="Traditional South Indian Wedding Oonjal Ritual - Aaruthra Studio"
-          className="w-full h-full object-cover object-center scale-105"
-        />
+        {studioInfo.parallaxImage ? (
+          <img
+            src={studioInfo.parallaxImage}
+            alt="Traditional South Indian Wedding Oonjal Ritual - Aaruthra Studio"
+            className="w-full h-full object-cover object-center scale-105"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-[#38271E] via-[#141211] to-[#141211]" />
+        )}
         {/* Dark contrast gradient so text is 100% visible and vivid */}
         <div className="absolute inset-0 bg-[#141211]/75 backdrop-blur-[2px]"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#141211] via-transparent to-[#141211]"></div>

@@ -13,24 +13,21 @@ import {
   FileText
 } from 'lucide-react';
 import { PackageItem, BookingRequest } from '../types';
-import { StorageService } from '../services/storage';
-import { STUDIO_INFO } from '../data/initialData';
+import { Api } from '../services/api';
+import { useStudioData } from '../context/StudioDataContext';
 
 interface BookingCalendarModalProps {
   isOpen: boolean;
   onClose: () => void;
   selectedPackage?: PackageItem | null;
-  packages: PackageItem[];
-  onBookingCreated: (booking: BookingRequest) => void;
 }
 
 export const BookingCalendarModal: React.FC<BookingCalendarModalProps> = ({
   isOpen,
   onClose,
-  selectedPackage,
-  packages,
-  onBookingCreated
+  selectedPackage
 }) => {
+  const { packages, studioInfo } = useStudioData();
   const [formData, setFormData] = useState({
     clientName: '',
     email: '',
@@ -45,6 +42,7 @@ export const BookingCalendarModal: React.FC<BookingCalendarModalProps> = ({
 
   const [submittedBooking, setSubmittedBooking] = useState<BookingRequest | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     if (selectedPackage) {
@@ -64,18 +62,18 @@ export const BookingCalendarModal: React.FC<BookingCalendarModalProps> = ({
 
   const currentPkg = packages.find(p => p.id === formData.packageId) || packages[0];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
     try {
-      const created = StorageService.addBooking({
+      const created = await Api.createBooking({
         clientName: formData.clientName,
         email: formData.email,
         phone: formData.phone,
         eventDate: formData.eventDate || new Date().toISOString().split('T')[0],
         eventType: formData.eventType,
-        packageId: currentPkg?.id || 'pkg-heritage',
         packageName: currentPkg?.name || 'The Heritage Classic',
         venueLocation: formData.venueLocation || 'Madurai / Tamil Nadu',
         guestCount: formData.guestCount,
@@ -83,10 +81,10 @@ export const BookingCalendarModal: React.FC<BookingCalendarModalProps> = ({
         estimatedAmount: currentPkg?.price || '₹1,25,000'
       });
 
-      onBookingCreated(created);
       setSubmittedBooking(created);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      setSubmitError(err?.message || 'Failed to submit booking. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -154,7 +152,7 @@ export const BookingCalendarModal: React.FC<BookingCalendarModalProps> = ({
             {/* Instant WhatsApp link for fast contact */}
             <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
               <a
-                href={`https://wa.me/${STUDIO_INFO.whatsappNumber}?text=${encodeURIComponent(`Hello Aaruthra Studio! I just submitted a booking request on your website (ID: ${submittedBooking.id}) for ${submittedBooking.eventDate} (${submittedBooking.packageName}). Please confirm availability.`)}`}
+                href={`https://wa.me/${studioInfo.whatsappNumber}?text=${encodeURIComponent(`Hello Aaruthra Studio! I just submitted a booking request on your website (ID: ${submittedBooking.id}) for ${submittedBooking.eventDate} (${submittedBooking.packageName}). Please confirm availability.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="eyebrow bg-[#25D366] hover:bg-[#20ba59] text-white font-bold px-6 py-3.5 rounded-sm text-xs flex items-center justify-center gap-2 shadow"
@@ -340,6 +338,10 @@ export const BookingCalendarModal: React.FC<BookingCalendarModalProps> = ({
                 <p className="font-serif text-2xl text-[#A75D3F] font-bold">{currentPkg?.price}</p>
               </div>
             </div>
+
+            {submitError && (
+              <p className="text-xs text-rose-600 font-medium">{submitError}</p>
+            )}
 
             {/* Actions */}
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-end gap-3">

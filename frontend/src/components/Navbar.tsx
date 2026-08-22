@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Camera, 
-  Phone, 
-  MessageCircle, 
-  Calendar, 
-  ShieldCheck, 
-  Menu, 
-  X, 
-  ChevronRight,
-  Sparkles
+import {
+  Camera,
+  Phone,
+  MessageCircle,
+  Calendar,
+  Menu,
+  X,
+  ChevronRight
 } from 'lucide-react';
-import { STUDIO_INFO } from '../data/initialData';
+import { useStudioData } from '../context/StudioDataContext';
 
 interface NavbarProps {
   onOpenBooking: () => void;
-  onOpenAdmin: () => void;
-  pendingBookingsCount?: number;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ 
-  onOpenBooking, 
-  onOpenAdmin,
-  pendingBookingsCount = 0
+export const Navbar: React.FC<NavbarProps> = ({
+  onOpenBooking
 }) => {
+  const { studioInfo } = useStudioData();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -51,43 +46,43 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header 
       id="main-navbar"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-[#141211]/95 backdrop-blur-md py-3.5 border-b border-[#38271E]/60 shadow-xl' 
-          : 'bg-gradient-to-b from-[#141211]/90 via-[#141211]/60 to-transparent py-5'
+      className={`fixed top-0 left-0 right-0 z-50 py-4 ${
+        isScrolled
+          ? 'bg-[#141211]/95 backdrop-blur-md border-b border-[#38271E]/60 shadow-xl'
+          : 'bg-gradient-to-b from-[#141211]/90 via-[#141211]/60 to-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          
+      <div className="w-full px-6 sm:px-8 lg:px-10">
+        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 xl:gap-8">
+
           {/* Brand Logo */}
-          <a 
-            id="nav-logo" 
-            href="#" 
-            className="flex flex-col group cursor-pointer"
+          <a
+            id="nav-logo"
+            href="#"
+            className="flex flex-col group cursor-pointer shrink-0"
           >
-            <div className="flex items-center gap-2">
-              <Camera className="w-5 h-5 text-[#C5A880] transition-transform group-hover:scale-110" />
-              <span className="font-display font-bold tracking-[0.25em] text-lg sm:text-xl text-[#FAF7F2] uppercase">
+            <div className="flex items-center gap-2.5">
+              <Camera className="w-6 h-6 text-[#C5A880] transition-transform group-hover:scale-110" />
+              <span className="font-display font-bold tracking-[0.25em] text-xl sm:text-2xl text-[#FAF7F2] uppercase">
                 Aaruthra
               </span>
-              <span className="font-display tracking-[0.25em] text-lg sm:text-xl text-[#C5A880] font-light uppercase">
+              <span className="font-display tracking-[0.25em] text-xl sm:text-2xl text-[#C5A880] font-light uppercase">
                 Studio
               </span>
             </div>
-            <span className="eyebrow text-[0.58rem] tracking-[0.3em] text-[#C5A880] mt-0.5 font-semibold">
+            <span className="eyebrow text-[0.58rem] tracking-[0.3em] text-[#C5A880] mt-1 font-semibold">
               Heritage & Wedding Photography · Madurai
             </span>
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-7">
+          <nav className="hidden lg:flex items-center justify-center gap-4 xl:gap-7 min-w-0 overflow-x-auto no-scrollbar">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 id={`nav-link-${link.label.toLowerCase()}`}
-                className="eyebrow text-[0.72rem] tracking-[0.22em] text-[#FAF7F2] hover:text-[#C5A880] transition-colors py-1 relative group font-semibold"
+                className="eyebrow text-[0.72rem] tracking-[0.22em] text-[#FAF7F2] hover:text-[#C5A880] transition-colors py-1 relative group font-semibold whitespace-nowrap"
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C5A880] transition-all duration-300 group-hover:w-full"></span>
@@ -96,11 +91,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Desktop Action Buttons */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3 justify-self-end shrink-0">
             {/* Quick Call */}
             <a
               id="nav-btn-call"
-              href={`tel:${STUDIO_INFO.phone}`}
+              href={`tel:${studioInfo.phone}`}
               title="Call Aaruthra Studio"
               className="p-2.5 rounded-full border border-[#C5A880]/40 text-[#FAF7F2] hover:text-[#C5A880] hover:border-[#C5A880] hover:bg-[#C5A880]/10 transition-colors"
             >
@@ -110,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Quick WhatsApp */}
             <a
               id="nav-btn-whatsapp"
-              href={`https://wa.me/${STUDIO_INFO.whatsappNumber}?text=${encodeURIComponent("Hello Aaruthra Studio! I would like to inquire about wedding photography availability.")}`}
+              href={`https://wa.me/${studioInfo.whatsappNumber}?text=${encodeURIComponent("Hello Aaruthra Studio! I would like to inquire about wedding photography availability.")}`}
               target="_blank"
               rel="noopener noreferrer"
               title="Chat on WhatsApp"
@@ -118,19 +113,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <MessageCircle className="w-4 h-4" />
             </a>
-
-            {/* Admin Portal Toggle */}
-            <button
-              id="nav-btn-admin"
-              onClick={onOpenAdmin}
-              className="relative px-3 py-2 rounded border border-[#C5A880]/30 text-[#E2CFB4] hover:text-white hover:border-[#C5A880] hover:bg-[#38271E]/60 transition-colors flex items-center gap-1.5 text-xs font-medium"
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-[#C5A880]" />
-              <span>Admin</span>
-              {pendingBookingsCount > 0 && (
-                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-              )}
-            </button>
 
             {/* Check Availability CTA */}
             <button
@@ -188,14 +170,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex flex-col gap-2 pt-2">
             <div className="grid grid-cols-2 gap-2">
               <a
-                href={`tel:${STUDIO_INFO.phone}`}
+                href={`tel:${studioInfo.phone}`}
                 className="flex items-center justify-center gap-2 py-2.5 rounded border border-[#C5A880]/40 text-[#FAF7F2] text-xs font-medium"
               >
                 <Phone className="w-3.5 h-3.5 text-[#C5A880]" />
                 <span>Call Studio</span>
               </a>
               <a
-                href={`https://wa.me/${STUDIO_INFO.whatsappNumber}?text=${encodeURIComponent("Hello Aaruthra Studio! I would like to inquire about wedding photography availability.")}`}
+                href={`https://wa.me/${studioInfo.whatsappNumber}?text=${encodeURIComponent("Hello Aaruthra Studio! I would like to inquire about wedding photography availability.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 py-2.5 rounded bg-[#25D366]/20 border border-[#25D366]/50 text-[#25D366] text-xs font-semibold"
@@ -205,28 +187,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               </a>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenAdmin();
-                }}
-                className="flex items-center justify-center gap-2 py-2.5 rounded border border-[#38271E] bg-[#23201E] text-[#FAF7F2] text-xs font-medium"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 text-[#C5A880]" />
-                <span>Admin Panel</span>
-              </button>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenBooking();
-                }}
-                className="flex items-center justify-center gap-2 py-2.5 rounded bg-[#C5A880] text-[#141211] text-xs font-bold eyebrow"
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                <span>Check Dates</span>
-              </button>
-            </div>
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenBooking();
+              }}
+              className="flex items-center justify-center gap-2 py-2.5 rounded bg-[#C5A880] text-[#141211] text-xs font-bold eyebrow"
+            >
+              <Calendar className="w-3.5 h-3.5" />
+              <span>Check Dates</span>
+            </button>
           </div>
         </div>
       )}

@@ -14,6 +14,9 @@ class StudioInfo(models.Model):
     weddings_photographed = models.CharField(max_length=32, default="450+")
     heirloom_albums = models.CharField(max_length=32, default="380+")
     client_rating = models.CharField(max_length=32, default="4.9/5")
+    hero_image = models.ImageField(upload_to='studio/', blank=True, null=True, help_text="Homepage hero banner background")
+    parallax_image = models.ImageField(upload_to='studio/', blank=True, null=True, help_text="Full-bleed quote/parallax section background")
+    photographer_image = models.ImageField(upload_to='studio/', blank=True, null=True, help_text="Founder/photographer portrait for the About section")
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -30,7 +33,7 @@ class FeaturedStory(models.Model):
     subtitle = models.CharField(max_length=255, blank=True, null=True)
     location = models.CharField(max_length=255)
     date = models.CharField(max_length=128)
-    cover_image = models.URLField(max_length=1000)
+    cover_image = models.ImageField(upload_to='stories/')
     excerpt = models.TextField()
     full_story = models.TextField()
     highlights = models.JSONField(default=list, blank=True, help_text="List of string highlights")
@@ -54,7 +57,7 @@ class SignatureService(models.Model):
     deliverables = models.JSONField(default=list, help_text="List of deliverables")
     starting_price = models.CharField(max_length=64)
     price_raw = models.IntegerField(default=0)
-    cover_image = models.URLField(max_length=1000)
+    cover_image = models.ImageField(upload_to='services/')
     is_popular = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0)
 
@@ -80,7 +83,7 @@ class GalleryPhoto(models.Model):
     category = models.CharField(max_length=64, choices=CATEGORY_CHOICES, default='muhurtham')
     category_label = models.CharField(max_length=128)
     location = models.CharField(max_length=128, default="Madurai")
-    image_url = models.URLField(max_length=1000)
+    image_url = models.ImageField(upload_to='gallery/')
     cloudinary_public_id = models.CharField(max_length=255, blank=True, null=True)
     order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -122,7 +125,7 @@ class Testimonial(models.Model):
     wedding_date_venue = models.CharField(max_length=255)
     rating = models.PositiveIntegerField(default=5)
     quote = models.TextField()
-    avatar_url = models.URLField(max_length=1000)
+    avatar_url = models.ImageField(upload_to='testimonials/')
     verified = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0)
 

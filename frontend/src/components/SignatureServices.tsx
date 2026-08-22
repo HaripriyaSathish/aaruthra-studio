@@ -1,14 +1,15 @@
 import React from 'react';
-import { Check, Sparkles, MessageCircle, ArrowUpRight } from 'lucide-react';
-import { INITIAL_SERVICES, STUDIO_INFO } from '../data/initialData';
+import { Check, Sparkles, MessageCircle } from 'lucide-react';
+import { useStudioData } from '../context/StudioDataContext';
 
 interface SignatureServicesProps {
   onOpenBooking: () => void;
 }
 
 export const SignatureServices: React.FC<SignatureServicesProps> = ({ onOpenBooking }) => {
+  const { services, studioInfo } = useStudioData();
   return (
-    <section id="services" className="py-24 sm:py-32 bg-[#FAF7F2] border-t border-[#E6DFD5] text-[#141211]">
+    <section id="services" className="py-14 sm:py-20 bg-[#FAF7F2] border-t border-[#E6DFD5] text-[#141211]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -27,7 +28,7 @@ export const SignatureServices: React.FC<SignatureServicesProps> = ({ onOpenBook
 
         {/* Services Grid */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {INITIAL_SERVICES.map((service, index) => (
+          {services.map((service) => (
             <div
               key={service.id}
               id={`service-card-${service.id}`}
@@ -83,7 +84,7 @@ export const SignatureServices: React.FC<SignatureServicesProps> = ({ onOpenBook
                   </button>
 
                   <a
-                    href={`https://wa.me/${STUDIO_INFO.whatsappNumber}?text=${encodeURIComponent(`Hello Aaruthra Studio, I would like more details and availability for "${service.title}".`)}`}
+                    href={`https://wa.me/${studioInfo.whatsappNumber}?text=${encodeURIComponent(`Hello Aaruthra Studio, I would like more details and availability for "${service.title}".`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Inquire via WhatsApp"

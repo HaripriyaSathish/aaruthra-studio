@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
-import { 
-  Sparkles, 
-  Filter, 
-  Maximize2, 
-  X, 
-  ChevronLeft, 
-  ChevronRight, 
-  MapPin, 
-  Calendar,
+import {
+  Sparkles,
+  Maximize2,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  MapPin,
   Share2,
   Check
 } from 'lucide-react';
-import { GalleryPhoto } from '../types';
+import { useStudioData } from '../context/StudioDataContext';
 
 interface PortfolioGalleryProps {
-  galleryItems: GalleryPhoto[];
   onOpenBooking: () => void;
 }
 
-export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ 
-  galleryItems, 
-  onOpenBooking 
+export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
+  onOpenBooking
 }) => {
+  const { gallery: galleryItems } = useStudioData();
   const [activeTab, setActiveTab] = useState<string>('all');
   const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null);
   const [copiedLink, setCopiedLink] = useState(false);
@@ -65,7 +62,7 @@ export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({
   };
 
   return (
-    <section id="portfolio" className="py-24 sm:py-32 bg-[#141211] text-[#FAF7F2] relative">
+    <section id="portfolio" className="py-14 sm:py-20 bg-[#141211] text-[#FAF7F2] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

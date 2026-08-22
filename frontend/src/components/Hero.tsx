@@ -1,12 +1,13 @@
 import React from 'react';
-import { Calendar, ChevronDown, Sparkles, MessageCircle, Phone, ArrowRight } from 'lucide-react';
-import { STUDIO_INFO } from '../data/initialData';
+import { Calendar, ChevronDown, MessageCircle, Phone, ArrowRight } from 'lucide-react';
+import { useStudioData } from '../context/StudioDataContext';
 
 interface HeroProps {
   onOpenBooking: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
+  const { studioInfo } = useStudioData();
   return (
     <section 
       id="hero-section"
@@ -14,11 +15,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
     >
       {/* Background Image with Gradient Overlays */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="/assets/hero-wedding-QV1LCGwi.jpg"
-          alt="Traditional South Indian Wedding Ceremony - Aaruthra Studio"
-          className="w-full h-full object-cover object-center scale-105 transform animate-pulse duration-[10000ms]"
-        />
+        {studioInfo.heroImage ? (
+          <img
+            src={studioInfo.heroImage}
+            alt="Traditional South Indian Wedding Ceremony - Aaruthra Studio"
+             className="w-full h-full object-cover object-center animate-kenburns"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-[#38271E] via-[#141211] to-[#141211]" />
+        )}
         {/* Deep contrast gradient overlay so text is 100% visible and legible */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#141211] via-[#141211]/65 to-[#141211]/85"></div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-[#141211]/40 to-[#141211]/90"></div>
@@ -27,18 +32,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
       {/* Hero Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16 sm:py-24">
         
-        {/* Availability Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#141211]/90 border border-[#C5A880]/60 shadow-lg mb-6 backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span className="eyebrow text-[0.65rem] sm:text-xs text-[#FAF7F2] font-semibold tracking-[0.2em]">
-            Booking 2026 · 2027 Wedding Season
-          </span>
-          <span className="text-[#C5A880] text-xs font-bold">|</span>
-          <span className="eyebrow text-[0.62rem] text-[#E2CFB4] font-medium hidden sm:inline">
-            Madurai & Worldwide
-          </span>
-        </div>
-
         {/* Main Display Headline */}
         <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[5.2rem] leading-[1.08] tracking-tight font-medium text-[#FAF7F2] drop-shadow-md">
           Capturing Sacred Moments, <br />
@@ -74,20 +67,20 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
         {/* Quick Contact Micro-bar */}
         <div className="mt-12 pt-8 border-t border-[#C5A880]/30 max-w-xl mx-auto flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs text-[#FAF7F2]">
           <a 
-            href={`https://wa.me/${STUDIO_INFO.whatsappNumber}?text=${encodeURIComponent("Hello Aaruthra Studio! I want to check wedding date availability.")}`}
+            href={`https://wa.me/${studioInfo.whatsappNumber}?text=${encodeURIComponent("Hello Aaruthra Studio! I want to check wedding date availability.")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 hover:text-[#25D366] transition-colors"
           >
             <MessageCircle className="w-4 h-4 text-[#25D366]" />
-            <span className="font-medium">Direct WhatsApp: +91 98765 43210</span>
+            <span className="font-medium">Direct WhatsApp: {studioInfo.phone}</span>
           </a>
-          <a 
-            href={`tel:${STUDIO_INFO.phone}`}
+          <a
+            href={`tel:${studioInfo.phone}`}
             className="flex items-center gap-2 hover:text-[#C5A880] transition-colors"
           >
             <Phone className="w-4 h-4 text-[#C5A880]" />
-            <span className="font-medium">Studio Line: 0452-243210</span>
+            <span className="font-medium">Studio Line: {studioInfo.phone}</span>
           </a>
         </div>
 
