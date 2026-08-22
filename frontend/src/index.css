@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --gold: #C5A880;
+    --gold-dark: #A98758;
+    --gold-light: #DFCAAA;
+    --charcoal: #141211;
+    --charcoal-soft: #23201E;
+    --ivory: #FAF7F2;
+    --ivory-pure: #FFFFFF;
+    --brown: #38271E;
+    --terracotta: #A75D3F;
+    --muted-high: #4B4540;
+    --border-color: #E6DFD5;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--ivory);
+    color: var(--charcoal);
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  .font-display {
+    font-family: 'Cinzel', 'Cormorant Garamond', serif;
+  }
+
+  .font-sans {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+/* Luxury high-contrast styling utilities */
+.eyebrow {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+.text-gold {
+  color: #C5A880;
+}
+
+.text-gold-light {
+  color: #E2CFB4;
+}
+
+.bg-gold {
+  background-color: #C5A880;
+}
+
+.bg-charcoal {
+  background-color: #141211;
+}
+
+.text-charcoal {
+  color: #141211;
+}
+
+.bg-ivory {
+  background-color: #FAF7F2;
+}
+
+.text-ivory {
+  color: #FAF7F2;
+}
+
+.bg-brown {
+  background-color: #38271E;
+}
+
+.text-brown {
+  color: #38271E;
+}
+
+.bg-terracotta {
+  background-color: #A75D3F;
+}
+
+.text-terracotta {
+  color: #A75D3F;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A880;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A98758;
+}

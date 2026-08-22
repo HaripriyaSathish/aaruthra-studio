@@ -1,0 +1,6 @@
+{
+  "name": "Aaruthra Studio - Heritage & Wedding Photography",
+  "description": "South Indian Heritage & Wedding Photography Studio website with booking calendar, portfolio gallery, admin panel, Cloudinary storage, and full contact integrations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
