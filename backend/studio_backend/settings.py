@@ -29,7 +29,6 @@ AUTO_MIGRATE = os.getenv('AUTO_MIGRATE', 'True') == 'True'
 AUTO_SEED = os.getenv('AUTO_SEED', 'True') == 'True'
 
 # Application definition
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,6 +46,7 @@ INSTALLED_APPS = [
     # Core app
     'photography.apps.PhotographyConfig',
 ]
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -159,15 +159,35 @@ CLOUDINARY_STORAGE = {
 }
 USE_CLOUDINARY = all(CLOUDINARY_STORAGE.values())
 
-# Old-style storage settings (not the newer STORAGES dict) — required
-# because django-cloudinary-storage's own collectstatic override reads
-# settings.STATICFILES_STORAGE directly and errors if it's absent.
+# Both the modern STORAGES dict AND the legacy DEFAULT_FILE_STORAGE/
+# STATICFILES_STORAGE attributes are set here, deliberately:
+#
+# - STORAGES['default'] is what Django 4.2+ actually reads to resolve
+#   ImageField/FileField storage at save time. Without this, uploads
+#   silently save to local disk regardless of what DEFAULT_FILE_STORAGE
+#   says — confirmed by testing directly against this Django version,
+#   which does NOT auto-translate the legacy setting into STORAGES like
+#   an older Django compatibility shim once did.
+# - STATICFILES_STORAGE (legacy attribute) is kept only because
+#   django-cloudinary-storage's own collectstatic command override reads
+#   settings.STATICFILES_STORAGE directly and errors if it's absent.
+#   Setting both together is safe — this Django version treats them as
+#   independent, unrelated settings with no conflict check between them.
 DEFAULT_FILE_STORAGE = (
     'cloudinary_storage.storage.MediaCloudinaryStorage'
     if USE_CLOUDINARY
     else 'django.core.files.storage.FileSystemStorage'
 )
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+STORAGES = {
+    'default': {
+        'BACKEND': DEFAULT_FILE_STORAGE,
+    },
+    'staticfiles': {
+        'BACKEND': STATICFILES_STORAGE,
+    },
+}
+
 # Prints full tracebacks for server errors to stdout even with DEBUG=False,
 # so they show up in Render's Logs tab instead of only a bare "500" access
 # log line with no way to diagnose what actually broke.
