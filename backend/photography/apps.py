@@ -18,6 +18,20 @@ class PhotographyConfig(AppConfig):
     verbose_name = 'Aaruthra Studio Photography Management'
 
     def ready(self):
+        if not (len(sys.argv) > 1 and sys.argv[1] in EXPLICIT_COMMANDS):
+            cloud_name = getattr(settings, 'CLOUDINARY_STORAGE', {}).get('CLOUD_NAME', '')
+            has_key = bool(getattr(settings, 'CLOUDINARY_STORAGE', {}).get('API_KEY'))
+            has_secret = bool(getattr(settings, 'CLOUDINARY_STORAGE', {}).get('API_SECRET'))
+            if getattr(settings, 'USE_CLOUDINARY', False):
+                print(f"[photography] Cloudinary storage: ENABLED (cloud_name='{cloud_name}')")
+            else:
+                print(
+                    f"[photography] Cloudinary storage: DISABLED — uploads go to local disk. "
+                    f"CLOUDINARY_CLOUD_NAME={'set' if cloud_name else 'MISSING'}, "
+                    f"CLOUDINARY_API_KEY={'set' if has_key else 'MISSING'}, "
+                    f"CLOUDINARY_API_SECRET={'set' if has_secret else 'MISSING'}"
+                )
+
         auto_migrate = getattr(settings, 'AUTO_MIGRATE', False)
         auto_seed = getattr(settings, 'AUTO_SEED', False)
         if not (auto_migrate or auto_seed):
