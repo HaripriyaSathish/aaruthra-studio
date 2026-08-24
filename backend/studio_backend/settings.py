@@ -168,3 +168,22 @@ DEFAULT_FILE_STORAGE = (
     else 'django.core.files.storage.FileSystemStorage'
 )
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+# Prints full tracebacks for server errors to stdout even with DEBUG=False,
+# so they show up in Render's Logs tab instead of only a bare "500" access
+# log line with no way to diagnose what actually broke.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
+}
