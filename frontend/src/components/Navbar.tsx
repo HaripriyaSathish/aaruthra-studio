@@ -52,8 +52,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           : 'bg-gradient-to-b from-[#141211]/90 via-[#141211]/60 to-transparent'
       }`}
     >
-      <div className="w-full px-6 sm:px-8 lg:px-10">
-        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 xl:gap-6">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 xl:gap-6">
 
           {/* Brand Logo */}
           <a
@@ -63,26 +63,26 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <div className="flex items-center gap-1.5">
               <Camera className="w-4 h-4 text-[#C5A880] transition-transform group-hover:scale-110" />
-              <span className="font-display font-bold tracking-[0.06em] text-base text-[#FAF7F2] uppercase">
+              <span className="font-display font-bold tracking-[0.08em] text-lg text-[#FAF7F2] uppercase">
                 Aaruthra
               </span>
-              <span className="font-display tracking-[0.06em] text-base text-[#C5A880] font-light uppercase">
+              <span className="font-display tracking-[0.08em] text-lg text-[#C5A880] font-semibold uppercase">
                 Studio
               </span>
             </div>
-            <span className="eyebrow text-[0.46rem] tracking-[0.1em] text-[#C5A880] mt-0.5 font-semibold whitespace-nowrap">
+            <span className="eyebrow text-[0.48rem] tracking-[0.1em] text-[#C5A880] mt-0.5 font-semibold whitespace-nowrap">
               Heritage & Wedding Photography · Madurai
             </span>
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-4 min-w-0">
+          <nav className="hidden lg:flex items-center justify-center gap-1.5 xl:gap-4 min-w-0">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 id={`nav-link-${link.label.toLowerCase()}`}
-                className="eyebrow text-[0.66rem] tracking-[0.06em] text-[#FAF7F2] hover:text-[#C5A880] transition-colors py-1 relative group font-semibold whitespace-nowrap"
+                className="eyebrow text-[0.76rem] tracking-[0.07em] text-[#FAF7F2] hover:text-[#C5A880] transition-colors py-1 relative group font-bold whitespace-nowrap"
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C5A880] transition-all duration-300 group-hover:w-full"></span>
@@ -118,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="nav-btn-booking"
               onClick={onOpenBooking}
-              className="eyebrow bg-[#C5A880] hover:bg-[#B8966C] text-[#141211] font-bold px-3.5 py-2 rounded-sm transition-all duration-300 transform hover:-translate-y-0.5 shadow-md flex items-center gap-1.5 text-[0.68rem] whitespace-nowrap"
+              className="eyebrow bg-[#C5A880] hover:bg-[#B8966C] text-[#141211] font-bold px-3 py-2 rounded-sm transition-all duration-300 transform hover:-translate-y-0.5 shadow-md flex items-center gap-1.5 text-[0.65rem] whitespace-nowrap"
             >
               <Calendar className="w-3.5 h-3.5" />
               <span>Check Dates</span>
