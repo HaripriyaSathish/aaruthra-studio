@@ -76,13 +76,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center justify-center gap-4 xl:gap-7 min-w-0 overflow-x-auto no-scrollbar">
+          <nav className="hidden min-[1700px]:flex items-center justify-center gap-5 xl:gap-7 min-w-0">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 id={`nav-link-${link.label.toLowerCase()}`}
-                className="eyebrow text-[0.72rem] tracking-[0.22em] text-[#FAF7F2] hover:text-[#C5A880] transition-colors py-1 relative group font-semibold whitespace-nowrap"
+                className="eyebrow text-[0.72rem] tracking-[0.14em] text-[#FAF7F2] hover:text-[#C5A880] transition-colors py-1 relative group font-semibold whitespace-nowrap"
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C5A880] transition-all duration-300 group-hover:w-full"></span>
@@ -91,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Desktop Action Buttons */}
-          <div className="hidden lg:flex items-center gap-3 justify-self-end shrink-0">
+          <div className="hidden min-[1700px]:flex items-center gap-3 justify-self-end shrink-0">
             {/* Quick Call */}
             <a
               id="nav-btn-call"
@@ -126,7 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Mobile Menu Toggle Button */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-2 min-[1700px]:hidden">
             <button
               id="mobile-btn-booking-quick"
               onClick={onOpenBooking}
@@ -149,9 +149,9 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div 
+        <div
           id="mobile-menu-drawer"
-          className="lg:hidden bg-[#141211] border-b border-[#38271E] px-4 pt-4 pb-6 space-y-3 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200"
+          className="min-[1700px]:hidden bg-[#141211] border-b border-[#38271E] px-4 pt-4 pb-6 space-y-3 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200"
         >
           <div className="grid grid-cols-2 gap-2 pb-3 border-b border-[#38271E]">
             {navLinks.map((link) => (
