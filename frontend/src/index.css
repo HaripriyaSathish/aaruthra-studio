@@ -34,57 +34,78 @@
   }
 }
 
-/* Luxury high-contrast styling utilities */
-.eyebrow {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-weight: 600;
-  font-size: 0.72rem;
+/* Luxury high-contrast styling utilities. Wrapped in @layer components so
+   that any Tailwind utility class (e.g. text-[0.46rem], tracking-[0.06em])
+   applied alongside these on the same element can still override them —
+   unlayered CSS always beats layered CSS regardless of source order or
+   selector specificity, which previously made font-size/letter-spacing
+   overrides on .eyebrow elements silently no-op. */
+@layer components {
+  .eyebrow {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-weight: 600;
+    font-size: 0.72rem;
+  }
+
+  .text-gold {
+    color: #C5A880;
+  }
+
+  .text-gold-light {
+    color: #E2CFB4;
+  }
+
+  .bg-gold {
+    background-color: #C5A880;
+  }
+
+  .bg-charcoal {
+    background-color: #141211;
+  }
+
+  .text-charcoal {
+    color: #141211;
+  }
+
+  .bg-ivory {
+    background-color: #FAF7F2;
+  }
+
+  .text-ivory {
+    color: #FAF7F2;
+  }
+
+  .bg-brown {
+    background-color: #38271E;
+  }
+
+  .text-brown {
+    color: #38271E;
+  }
+
+  .bg-terracotta {
+    background-color: #A75D3F;
+  }
+
+  .text-terracotta {
+    color: #A75D3F;
+  }
 }
 
-.text-gold {
-  color: #C5A880;
+/* Slow, smooth Ken Burns zoom for hero-style background photos */
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
 }
 
-.text-gold-light {
-  color: #E2CFB4;
-}
-
-.bg-gold {
-  background-color: #C5A880;
-}
-
-.bg-charcoal {
-  background-color: #141211;
-}
-
-.text-charcoal {
-  color: #141211;
-}
-
-.bg-ivory {
-  background-color: #FAF7F2;
-}
-
-.text-ivory {
-  color: #FAF7F2;
-}
-
-.bg-brown {
-  background-color: #38271E;
-}
-
-.text-brown {
-  color: #38271E;
-}
-
-.bg-terracotta {
-  background-color: #A75D3F;
-}
-
-.text-terracotta {
-  color: #A75D3F;
+.animate-kenburns {
+  animation: kenburns 20s ease-out forwards;
 }
 
 /* Custom scrollbars */
@@ -102,17 +123,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #A98758;
 }
-/* Slow, smooth Ken Burns zoom for hero-style background photos */
-@keyframes kenburns {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.12);
-  }
-}
-
-.animate-kenburns {
-  animation: kenburns 20s ease-out forwards;
-}
-

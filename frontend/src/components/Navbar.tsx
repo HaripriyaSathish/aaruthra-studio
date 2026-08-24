@@ -37,9 +37,9 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: "Stories", href: "#stories" },
     { label: "Services", href: "#services" },
     { label: "Portfolio", href: "#portfolio" },
-    { label: "Photographer", href: "#about" },
+    { label: "About", href: "#about" },
     { label: "Packages", href: "#packages" },
-    { label: "Testimonials", href: "#testimonials" },
+    { label: "Reviews", href: "#testimonials" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -53,7 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       }`}
     >
       <div className="w-full px-6 sm:px-8 lg:px-10">
-        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4 xl:gap-8">
+        <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 xl:gap-6">
 
           {/* Brand Logo */}
           <a
@@ -61,28 +61,28 @@ export const Navbar: React.FC<NavbarProps> = ({
             href="#"
             className="flex flex-col group cursor-pointer shrink-0"
           >
-            <div className="flex items-center gap-2.5">
-              <Camera className="w-6 h-6 text-[#C5A880] transition-transform group-hover:scale-110" />
-              <span className="font-display font-bold tracking-[0.25em] text-xl sm:text-2xl text-[#FAF7F2] uppercase">
+            <div className="flex items-center gap-1.5">
+              <Camera className="w-4 h-4 text-[#C5A880] transition-transform group-hover:scale-110" />
+              <span className="font-display font-bold tracking-[0.06em] text-base text-[#FAF7F2] uppercase">
                 Aaruthra
               </span>
-              <span className="font-display tracking-[0.25em] text-xl sm:text-2xl text-[#C5A880] font-light uppercase">
+              <span className="font-display tracking-[0.06em] text-base text-[#C5A880] font-light uppercase">
                 Studio
               </span>
             </div>
-            <span className="eyebrow text-[0.58rem] tracking-[0.3em] text-[#C5A880] mt-1 font-semibold">
+            <span className="eyebrow text-[0.46rem] tracking-[0.1em] text-[#C5A880] mt-0.5 font-semibold whitespace-nowrap">
               Heritage & Wedding Photography · Madurai
             </span>
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden min-[1700px]:flex items-center justify-center gap-5 xl:gap-7 min-w-0">
+          <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-4 min-w-0">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 id={`nav-link-${link.label.toLowerCase()}`}
-                className="eyebrow text-[0.72rem] tracking-[0.14em] text-[#FAF7F2] hover:text-[#C5A880] transition-colors py-1 relative group font-semibold whitespace-nowrap"
+                className="eyebrow text-[0.66rem] tracking-[0.06em] text-[#FAF7F2] hover:text-[#C5A880] transition-colors py-1 relative group font-semibold whitespace-nowrap"
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C5A880] transition-all duration-300 group-hover:w-full"></span>
@@ -91,13 +91,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Desktop Action Buttons */}
-          <div className="hidden min-[1700px]:flex items-center gap-3 justify-self-end shrink-0">
+          <div className="hidden lg:flex items-center gap-2 justify-self-end shrink-0">
             {/* Quick Call */}
             <a
               id="nav-btn-call"
               href={`tel:${studioInfo.phone}`}
               title="Call Aaruthra Studio"
-              className="p-2.5 rounded-full border border-[#C5A880]/40 text-[#FAF7F2] hover:text-[#C5A880] hover:border-[#C5A880] hover:bg-[#C5A880]/10 transition-colors"
+              className="p-2 rounded-full border border-[#C5A880]/40 text-[#FAF7F2] hover:text-[#C5A880] hover:border-[#C5A880] hover:bg-[#C5A880]/10 transition-colors"
             >
               <Phone className="w-4 h-4" />
             </a>
@@ -109,7 +109,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               title="Chat on WhatsApp"
-              className="p-2.5 rounded-full border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] transition-colors"
+              className="p-2 rounded-full border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366]/10 hover:border-[#25D366] transition-colors"
             >
               <MessageCircle className="w-4 h-4" />
             </a>
@@ -118,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="nav-btn-booking"
               onClick={onOpenBooking}
-              className="eyebrow bg-[#C5A880] hover:bg-[#B8966C] text-[#141211] font-bold px-5 py-2.5 rounded-sm transition-all duration-300 transform hover:-translate-y-0.5 shadow-md flex items-center gap-2 text-xs"
+              className="eyebrow bg-[#C5A880] hover:bg-[#B8966C] text-[#141211] font-bold px-3.5 py-2 rounded-sm transition-all duration-300 transform hover:-translate-y-0.5 shadow-md flex items-center gap-1.5 text-[0.68rem] whitespace-nowrap"
             >
               <Calendar className="w-3.5 h-3.5" />
               <span>Check Dates</span>
@@ -126,7 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Mobile Menu Toggle Button */}
-          <div className="flex items-center gap-2 min-[1700px]:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <button
               id="mobile-btn-booking-quick"
               onClick={onOpenBooking}
@@ -151,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {mobileMenuOpen && (
         <div
           id="mobile-menu-drawer"
-          className="min-[1700px]:hidden bg-[#141211] border-b border-[#38271E] px-4 pt-4 pb-6 space-y-3 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200"
+          className="lg:hidden bg-[#141211] border-b border-[#38271E] px-4 pt-4 pb-6 space-y-3 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200"
         >
           <div className="grid grid-cols-2 gap-2 pb-3 border-b border-[#38271E]">
             {navLinks.map((link) => (
