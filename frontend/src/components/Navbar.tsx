@@ -64,7 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center gap-1.5">
               <Camera className="w-4 h-4 text-[#C5A880] transition-transform group-hover:scale-110" />
               <span className="font-display font-bold tracking-[0.08em] text-lg text-[#FAF7F2] uppercase">
-                Aaruthra
+                Vetri
               </span>
               <span className="font-display tracking-[0.08em] text-lg text-[#C5A880] font-semibold uppercase">
                 Studio
@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a
               id="nav-btn-call"
               href={`tel:${studioInfo.phone}`}
-              title="Call Aaruthra Studio"
+              title="Call Vetri Studio"
               className="p-2 rounded-full border border-[#C5A880]/40 text-[#FAF7F2] hover:text-[#C5A880] hover:border-[#C5A880] hover:bg-[#C5A880]/10 transition-colors"
             >
               <Phone className="w-4 h-4" />
@@ -105,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Quick WhatsApp */}
             <a
               id="nav-btn-whatsapp"
-              href={`https://wa.me/${studioInfo.whatsappNumber}?text=${encodeURIComponent("Hello Aaruthra Studio! I would like to inquire about wedding photography availability.")}`}
+              href={`https://wa.me/${studioInfo.whatsappNumber}?text=${encodeURIComponent("Hello Vetri Studio! I would like to inquire about wedding photography availability.")}`}
               target="_blank"
               rel="noopener noreferrer"
               title="Chat on WhatsApp"

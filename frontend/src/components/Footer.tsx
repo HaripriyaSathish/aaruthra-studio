@@ -20,7 +20,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
             <div className="flex items-center gap-2">
               <Camera className="w-6 h-6 text-[#C5A880]" />
               <span className="font-display font-bold tracking-[0.25em] text-xl text-[#FAF7F2] uppercase">
-                Aaruthra
+                Vetri
               </span>
               <span className="font-display tracking-[0.25em] text-xl text-[#C5A880] font-light uppercase">
                 Studio
@@ -103,7 +103,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
 
         {/* Bottom Bar */}
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#E2CFB4]">
-          <p>© {new Date().getFullYear()} Aaruthra Studio. All Rights Reserved. Crafted with reverence.</p>
+          <p>© {new Date().getFullYear()} Vetri Studio. All Rights Reserved. Crafted with reverence.</p>
 
           
         </div>
